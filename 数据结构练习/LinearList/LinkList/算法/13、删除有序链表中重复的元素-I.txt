@@ -1,0 +1,21 @@
+ListNode* deleteDuplicates(ListNode* head) {
+        // write code here
+        if(!head)return nullptr;
+        ListNode*temp=head;
+        ListNode*delete_temp=nullptr;
+        while(temp->next)
+        {
+            if(temp->val==temp->next->val)
+            {
+                delete_temp=temp->next;
+                temp->next=temp->next->next;
+                delete delete_temp;
+                continue;
+            }
+            temp=temp->next;
+        }
+        return head;
+    }
+删除给出链表中的重复元素（链表中元素从小到大有序），使链表中的所有元素都只出现一次例如：
+给出的链表为1→1→2,返回1→2.
+给出的链表为1→1→2→3→3，返回1→2→3.

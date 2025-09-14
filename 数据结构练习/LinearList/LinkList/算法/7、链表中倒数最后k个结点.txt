@@ -1,0 +1,17 @@
+ListNode* FindKthToTail(ListNode* pHead, int k) {
+        // write code here
+        if(pHead==nullptr||k==0)return nullptr;
+        ListNode*rear=nullptr,*front=pHead;
+        for(int i=0;i<k-1;i++)
+        {
+            front=front->next;
+            if(!front)return nullptr;
+        }
+        rear=pHead;
+        while(front->next!=nullptr)
+        {
+            front=front->next;
+            rear=rear->next;
+        }
+        return rear;
+    }

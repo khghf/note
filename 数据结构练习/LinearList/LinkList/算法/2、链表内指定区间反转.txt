@@ -1,0 +1,28 @@
+ListNode* reverseBetween(ListNode* head, int m, int n) {
+        // write code here
+        if(head==nullptr||m==n||head->next==nullptr)return head;
+        ListNode*m_prev=nullptr;
+        ListNode*n_next=nullptr;
+        ListNode*range_prev=nullptr;
+        ListNode*range_cur=nullptr;
+        ListNode*head_node=new ListNode(0);//因为可能头元素也反转了所以需要一个头结点指针
+        head_node->next=head;
+        m_prev=head_node;
+        for(int i=0;i<m-1;i++)
+        {
+            m_prev=m_prev->next;
+        }
+        range_cur=m_prev->next;//指向m节点
+        //这一步完成是反转链表
+        for(int i=m;i<=n;i++)
+        {
+           n_next=range_cur->next;
+           range_cur->next=range_prev;
+           range_prev=range_cur;
+           range_cur=n_next;
+        }
+        //将反转后的链表连通起来
+        m_prev->next->next=n_next;
+        m_prev->next=range_prev;
+        return head_node->next;
+    }

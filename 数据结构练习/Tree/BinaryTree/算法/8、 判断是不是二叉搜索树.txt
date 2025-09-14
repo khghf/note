@@ -1,0 +1,16 @@
+TreeNode* pre=nullptr;
+
+    bool isValidBST(TreeNode* root) {
+        // write code here
+        if(root==nullptr)return true;
+        if(!isValidBST(root->left))return false;
+        if(pre==nullptr)pre=root;
+        else
+        {
+            if(pre->val>root->val)return false;
+            pre=root;
+        }
+        if(!isValidBST(root->right))return false;
+        return true;
+    }
+给定一个二叉树根节点，请你判断这棵树是不是二叉搜索树。

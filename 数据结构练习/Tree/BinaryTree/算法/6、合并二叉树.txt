@@ -1,0 +1,15 @@
+已知两颗二叉树，将它们合并成一颗二叉树。合并规则是：都存在的结点，就将结点值加起来，否则空的位置就由另一个树的结点来代替。
+TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        // write code here
+        if(!t1&&!t2)return nullptr;
+        else if(t1==nullptr) return t2;
+        else if(t2==nullptr) return t1;
+        else 
+        {
+            TreeNode*newt=new TreeNode(t1->val+t2->val);
+            newt->left=mergeTrees(t1->left,t2->left);
+            newt->right=mergeTrees(t1->right,t2->right);
+            delete t1;delete t2;
+            return newt;
+        }
+    }

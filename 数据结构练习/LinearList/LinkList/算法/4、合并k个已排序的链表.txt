@@ -1,0 +1,25 @@
+struct cmp {
+        bool operator()(ListNode* L1, ListNode* L2) {
+            return L1->val > L2->val;
+        }
+    };
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        // write code here
+        priority_queue<ListNode*, vector<ListNode*>, cmp>minHeap;//最小堆
+        for (auto in : lists) {
+            if (in)minHeap.push(in);//先将所有头结点压入最小堆
+        }
+        ListNode* Vhead = new ListNode(0);
+        ListNode* temphead = Vhead;
+        while (!minHeap.empty()) {
+            ListNode* temp = minHeap.top();//取出最小元素
+            minHeap.pop();
+	    //链接
+            temphead->next = temp;
+            temphead = temphead->next;
+            if (temp->next) {
+                minHeap.push(temp->next);//有后续元素压入堆中
+            }
+        }
+        return Vhead->next;
+    }

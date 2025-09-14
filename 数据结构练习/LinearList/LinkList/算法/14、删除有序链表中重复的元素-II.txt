@@ -1,0 +1,52 @@
+删除链表中的所有重复出现的元素，只保留原链表中只出现一次的元素。例如：给出的链表为1→2→3→3→4→4→5,返回1→2→5.
+ListNode* deleteDuplicates(ListNode* head) {
+        // write code here
+        if(!head)return nullptr;
+        ListNode*temp=head;
+        ListNode*temp_prev=temp;
+        ListNode*del_temp=nullptr;
+        bool happened=false;
+        while(temp->next)
+        {
+            if(temp->val==temp->next->val)
+            {
+                //删除下一个元素,指向下下一个
+                del_temp=temp->next;
+                happened=true;
+                temp->next=temp->next->next;
+                delete del_temp;
+                continue;
+            }
+            else if(happened)
+            {
+                //前一次比较发生删除，而这一次两个元素不相等时，删除这次比较的第一个元素
+                del_temp=temp;
+                if(temp==head)
+                {
+                    head=temp->next;
+                }
+                else {
+                //前一个元素防止删除后链表断裂
+                 temp_prev->next=temp->next;
+                }
+                delete del_temp;
+                temp=head;
+                happened=false;
+                temp_prev=temp;
+                continue;
+            }
+            temp_prev=temp;
+            temp=temp->next;
+        }
+        if(happened)
+        {
+            if(temp_prev!=temp)temp_prev->next=nullptr;
+            else
+            {
+                delete temp;
+                return nullptr;
+            }
+            delete temp;
+        }
+        return head;
+    }

@@ -1,0 +1,18 @@
+给定一个链表，请判断该链表是否为回文结构。
+回文是指该字符串正序逆序完全一致。
+bool isPail(ListNode* head) {
+        // write code here
+        vector<int>temp;
+        ListNode*h=head;
+        while(h)
+        {
+            temp.push_back(h->val);
+            h=h->next;
+        }
+        int i=0,j=temp.size()-1;
+        while (i<=j) {
+        if(temp[i]!=temp[j])return false;
+        i++;j--;
+        }
+        return true;
+    }

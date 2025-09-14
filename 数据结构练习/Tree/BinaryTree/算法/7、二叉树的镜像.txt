@@ -1,0 +1,13 @@
+操作给定的二叉树，将其变换为源二叉树的镜像。
+TreeNode* Mirror(TreeNode* pRoot) {
+        // write code here
+        if(pRoot!=nullptr)
+        {
+            TreeNode*left=Mirror(pRoot->left);
+            TreeNode*right=Mirror(pRoot->right);
+            pRoot->left=right;
+            pRoot->right=left;
+            return pRoot;
+        }
+        return nullptr;
+    }

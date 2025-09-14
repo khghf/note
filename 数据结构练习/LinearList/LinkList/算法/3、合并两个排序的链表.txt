@@ -1,0 +1,26 @@
+
+ListNode* Merge(ListNode* pHead1, ListNode* pHead2) {
+        // write code here
+        ListNode*com1=pHead1;
+        ListNode*com2=pHead2;
+        ListNode*Vhead=new ListNode(0);//头结点
+        ListNode*cur_min=Vhead;
+        while(com1!=nullptr&&com2!=nullptr)
+        {
+            if(com1->val<com2->val)
+            {
+                cur_min->next=com1;
+                com1=com1->next;
+            }
+            else 
+            {
+                cur_min->next=com2;
+                com2=com2->next;
+            }
+            cur_min=cur_min->next;//指向这次比较中较小的值,用于连接下一次比较中较小的值
+        }
+        //把最后一个节点链接起来
+        if(com1==nullptr)cur_min->next=com2;
+        if(com2==nullptr)cur_min->next=com1;
+        return Vhead->next;
+    }

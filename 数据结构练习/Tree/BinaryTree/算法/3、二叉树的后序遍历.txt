@@ -1,0 +1,16 @@
+vector<int> postorderTraversal(TreeNode* root) {
+        // write code here
+        vector<int>re;
+        PostOrder(root, re);
+        return re;
+    }
+    void PostOrder(TreeNode*node,vector<int>&arr)
+    {
+        if(node!=nullptr)
+        {
+            PostOrder(node->left,arr);
+            PostOrder(node->right,arr);
+            arr.push_back(node->val);
+        }
+        return;
+    }

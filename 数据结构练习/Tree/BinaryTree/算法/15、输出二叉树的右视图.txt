@@ -1,0 +1,54 @@
+ vector<int> solve(vector<int>& preOrder,vector<int>& inOrder) {
+        // write code here
+        TreeNode*root=build(preOrder,0,preOrder.size()-1,inOrder,0,inOrder.size()-1);
+        return rightSideView(root);
+    }
+    TreeNode*build(vector<int>& preOrder,int pl,int pr,vector<int>& inOrder,int il,int ir)
+    {
+        TreeNode*root=nullptr;
+        for(int i=il;i<=ir;i++)
+        {
+                if(inOrder[i]==preOrder[pl])
+                {
+                    //找到根节点
+                    root=new TreeNode(preOrder[pl]);
+                    int leftsize = i - il; //左子树大小
+                    int rightsize = ir - i;//右子树大小
+                    root->left=build(preOrder, pl+1, pl+leftsize, inOrder, il,il+leftsize-1);
+                    root->right=build(preOrder, pr-rightsize+1, pr, inOrder, i+1,ir);
+                    break;
+                }
+        }
+        return root;
+    }
+    vector<int> rightSideView(TreeNode* root) 
+    {
+        unordered_map<int, int>mp;
+        int maxdepth=-1;
+        stack<TreeNode*>nodes;
+        stack<int>depths;
+        nodes.push(root);
+        depths.push(0);
+        while(!nodes.empty())
+        {
+            TreeNode*node=nodes.top();
+            nodes.pop();
+            int depth=depths.top();
+            depths.pop();
+            if(node!=nullptr)
+            {
+                maxdepth=max(maxdepth,depth);
+                //右子树比左子树晚入栈，栈顶最先出现的是每层最右边的结点
+                //在根据深度信息判断是否第一次访问该层的结点，是那麽当前访问的结点一定是该层最右侧的结点
+                if(mp.find(depth)==mp.end())mp[depth]=node->val;
+                nodes.push(node->left);
+                nodes.push(node->right);
+                depths.push(depth+1);
+                depths.push(depth+1);
+            }
+        }
+        vector<int>res;
+        for(int i=0;i<=maxdepth;i++)res.push_back(mp[i]);
+        return res;
+    }
+请根据二叉树的前序遍历，中序遍历恢复二叉树，并打印出二叉树的右视图(每层最右侧的结点值)

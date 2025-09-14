@@ -1,0 +1,18 @@
+ListNode* sortInList(ListNode* head) {
+        // write code here
+        vector<int>temp;
+        ListNode*h=head;
+        while(h)
+        {
+            temp.push_back(h->val);
+            h=h->next;
+        }
+        sort(temp.begin(),temp.end());
+        h=head;
+        for(auto in:temp)
+        {
+            h->val=in;
+            h=h->next;
+        }
+        return head;
+    }

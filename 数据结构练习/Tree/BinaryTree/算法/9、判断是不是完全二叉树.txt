@@ -1,0 +1,24 @@
+bool isCompleteTree(TreeNode* root) {
+        // write code here
+        if(root==nullptr)return true;
+        queue<TreeNode*>temp;
+        temp.push(root);
+        bool bflag=false;
+        while(!temp.empty())
+        {
+            TreeNode*front=temp.front();
+            temp.pop();
+            if(front==nullptr)bflag=true;
+            else
+            {
+                if(bflag)return false;
+                temp.push(front->left);
+                temp.push(front->right);
+            }
+        }
+        return true;
+    }
+step 1：先判断空树一定是完全二叉树。
+step 2：初始化一个队列辅助层次遍历，将根节点加入。
+step 3：逐渐从队列中弹出元素访问节点，如果遇到某个节点为空，进行标记，代表到了完全二叉树的最下层，若是后续还有访问，则说明提前出现了叶子节点，不符合完全二叉树的性质。
+step 4：否则，继续加入左右子节点进入队列排队，等待访问。

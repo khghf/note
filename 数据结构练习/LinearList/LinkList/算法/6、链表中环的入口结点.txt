@@ -1,0 +1,23 @@
+ListNode* EntryNodeOfLoop(ListNode* pHead) {
+        if (pHead == nullptr || pHead->next == nullptr)return nullptr;
+        ListNode* fast = pHead;
+        ListNode* slow = pHead;
+        bool first=true;
+        while (fast != slow||first) {
+           first=false;
+           if(!(slow=slow->next))return nullptr;
+           if(!(fast=fast->next))return nullptr;
+           if(!(fast=fast->next))return nullptr;
+        }
+        slow=pHead;
+        while(slow!=fast)
+        {
+            slow=slow->next;
+            fast=fast->next;
+        }
+        return slow;
+    }
+
+两个结论：
+1、设置快慢指针，假如有环，他们最后一定相遇。
+2、两个指针分别从链表头和相遇点继续出发，每次走一步，最后一定相遇与环入口。

@@ -1,0 +1,45 @@
+ListNode*revertList(ListNode*head)
+    {
+        ListNode*prev=nullptr,*cur=head;
+        while(cur!=nullptr)
+        {
+            head=head->next;
+            cur->next=prev;
+            prev=cur;
+            cur=head;
+        }
+        return prev;
+    } 
+    ListNode* addInList(ListNode* head1, ListNode* head2) {
+        // write code here
+        ListNode*rever_head1=revertList(head1);
+        ListNode*rever_head2=revertList(head2);
+        ListNode*return_head=new ListNode(0);
+        int prev_add=0;
+        while (rever_head1!=nullptr||rever_head2!=nullptr) 
+        {
+            if(rever_head1)
+            {
+                prev_add+=rever_head1->val;
+                rever_head1=rever_head1->next;
+            }
+            if(rever_head2)
+            {
+                prev_add+=rever_head2->val;
+                rever_head2=rever_head2->next;
+            }
+            //头插法
+            ListNode*temp=new ListNode(prev_add%10);
+            temp->next=return_head->next;
+            return_head->next=temp;
+            prev_add/=10;
+        }
+        if(prev_add!=0)
+        {
+            ListNode*temp=new ListNode(prev_add%10);
+            temp->next=return_head->next;
+            return_head->next=temp;
+            prev_add=0;
+        }
+        return return_head->next;
+    }
